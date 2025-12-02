@@ -1,11 +1,20 @@
 package ec.edu.uisek.githubclient
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import ec.edu.uisek.githubclient.databinding.ActivityMainBinding
+import ec.edu.uisek.githubclient.models.Repo
+import ec.edu.uisek.githubclient.services.GitHubApiService
+import ec.edu.uisek.githubclient.services.RetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,10 +27,48 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setUpRecycleView()
+        fetchRepositories()
     }
 
     private fun setUpRecycleView() {
         reposAdapter = ReposAdapter()
         binding.reposRecyclerView.adapter = reposAdapter
+    }
+
+    private fun fetchRepositories() {
+        val apiService= RetrofitClient.gitHubApiService
+        val call = apiService.getRepos()
+        call.enqueue(object : Callback<List<Repo>> {
+            override fun onResponse(call: Call<List<Repo>?>, response: Response<List<Repo>?>) {
+                if (response.isSuccessful) {
+                    val repos = response.body()
+                    if (repos != null && repos.isNotEmpty()) {
+                        reposAdapter.updaterepositories(repos)
+                    }
+                    else {
+                        val errMSg = when(response.code()) {
+                            401 -> "Error de autenticación"
+                            403 -> "Error de autorización"
+                            404 -> "Error de recurso no encontrado"
+                            else -> "Error desconocido ${response.code()}: ${response.message()} }"
+                        }
+                        Log.e("MainActivity", errMSg)
+                        showMessage(errMSg)
+                        }
+                    }
+                }
+
+            override fun onFailure(call: Call<List<Repo>?>, t: Throwable) {
+                val errMsg = "Error de conexión: ${t.message}"
+                Log.e("MainActivity", errMsg, t)
+                showMessage(errMsg)
+
+            }
+
+        })
+    }
+
+    private fun showMessage (msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
     }
 }
