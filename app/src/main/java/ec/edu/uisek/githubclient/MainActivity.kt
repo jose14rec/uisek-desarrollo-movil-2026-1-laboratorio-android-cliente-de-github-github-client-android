@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
     // -------------------- API: Obtener Repos --------------------
     private fun fetchRepositories() {
-        val apiService = RetrofitClient.gitHubApiService
+        val apiService = RetrofitClient.getApiService()
         val call = apiService.getRepos()
 
         call.enqueue(object : Callback<List<Repo>> {
@@ -114,10 +114,10 @@ class MainActivity : AppCompatActivity() {
 
     // -------------------- API: ELIMINAR REPO --------------------
     private fun deleteRepo(repo: Repo) {
-        val apiService = RetrofitClient.gitHubApiService
+        val apiService = RetrofitClient.getApiService()
         val call = apiService.deleteRepo(
             repo.owner.login,
-            repo.name          
+            repo.name
         )
 
         call.enqueue(object : Callback<Void> {

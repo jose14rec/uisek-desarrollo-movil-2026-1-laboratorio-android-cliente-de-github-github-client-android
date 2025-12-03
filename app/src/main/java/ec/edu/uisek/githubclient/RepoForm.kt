@@ -57,7 +57,7 @@ class RepoForm : AppCompatActivity() {
             description = repoDescription
         )
 
-        val apiService = RetrofitClient.gitHubApiService
+        val apiService = RetrofitClient.getApiService()
         val call = apiService.addRepository(repRequest)
 
         call.enqueue(object : Callback<Repo> {

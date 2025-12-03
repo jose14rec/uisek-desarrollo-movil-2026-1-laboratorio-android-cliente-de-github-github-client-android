@@ -6,5 +6,8 @@
     <string name="repo_lang">Lenguaje</string>
     <string name="save">Guardar</string>
     <string name="cancel">Cancelar</string>
+    <string name="user">Usuario</string>
+    <string name="pass">Contraseña</string>
+    <string name="login">Ingresar</string>
 
 </resources>
