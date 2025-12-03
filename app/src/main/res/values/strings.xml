@@ -4,5 +4,7 @@
     <string name="test_test">Esto es una prueba</string>
     <string name="repo_description">Descripción del Repositorio</string>
     <string name="repo_lang">Lenguaje</string>
+    <string name="save">Guardar</string>
+    <string name="cancel">Cancelar</string>
 
 </resources>
