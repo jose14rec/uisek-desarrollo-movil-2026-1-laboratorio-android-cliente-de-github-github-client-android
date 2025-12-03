@@ -1,30 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    tools:context=".RepoItem">
+    android:padding="8dp">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp">
+        android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/repo_owner_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/ic_launcher_foreground"
-            android:layout_gravity="center"/>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/leftColumn"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="6dp">
-            
+            android:gravity="center_horizontal">
+
+
+            <ImageView
+                android:id="@+id/repo_owner_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_launcher_foreground"
+                android:scaleType="centerCrop"
+                android:contentDescription="Imagen owner" />
+
+
+            <LinearLayout
+                android:id="@+id/actionsLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <ImageButton
+                    android:id="@+id/btnEdit"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_edit"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="Editar" />
+
+                <ImageButton
+                    android:id="@+id/btnDelete"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_delete"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="Eliminar" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/rightColumn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingStart="12dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp">
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -39,54 +81,58 @@
 
                 <TextView
                     android:id="@+id/repo_name"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/test_test"/>
+                    android:layout_weight="1"
+                    android:text="@string/test_test" />
             </LinearLayout>
 
-        <LinearLayout
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="6dp">
+                android:layout_marginTop="6dp">
 
-            <TextView
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:text="@string/repo_description"
-                android:textSize="14sp"
-                android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/repo_description"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
-            <TextView
+                <TextView
                     android:id="@+id/repo_description"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/test_test"/>
+                    android:layout_weight="1"
+                    android:text="@string/test_test" />
             </LinearLayout>
 
-        <LinearLayout
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="6dp">
+                android:layout_marginTop="6dp">
 
-            <TextView
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:text="@string/repo_lang"
-                android:textSize="14sp"
-                android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/repo_lang"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/repo_language"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/test_test"/>
+                    android:layout_weight="1"
+                    android:text="@string/test_test" />
             </LinearLayout>
 
         </LinearLayout>
 
     </LinearLayout>
-
 
 </FrameLayout>

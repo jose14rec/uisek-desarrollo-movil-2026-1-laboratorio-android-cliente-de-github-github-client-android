@@ -7,34 +7,40 @@ import com.bumptech.glide.Glide
 import ec.edu.uisek.githubclient.databinding.FragmentRepoItemBinding
 import ec.edu.uisek.githubclient.models.Repo
 
+class ReposAdapter(
+    private val onEdit: (Repo) -> Unit,
+    private val onDelete: (Repo) -> Unit
+) : RecyclerView.Adapter<ReposAdapter.RepoViewHolder>() {
 
-class RepoViewHolder(private val binding: FragmentRepoItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    private var repositories: List<Repo> = emptyList()
 
+    inner class RepoViewHolder(val binding: FragmentRepoItemBinding)
+        : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(repo: Repo) {
-        binding.repoName.text = repo.name
-        binding.repoDescription.text = repo.description ?: "No existe descripción en el Repositorio"
-        binding.repoLanguage.text = repo.language ?: "No existe lenguaje en el Repositorio"
-        Glide.with(binding.root.context)
-            .load(repo.owner.avatarUrl)
-            .placeholder(R.mipmap.ic_launcher)
-            .error(R.mipmap.ic_launcher)
-            .circleCrop()
-            .into(binding.repoOwnerImage)
+        fun bind(repo: Repo) {
+
+            binding.repoName.text = repo.name
+            binding.repoDescription.text = repo.description ?: "No existe descripción en el Repositorio"
+            binding.repoLanguage.text = repo.language ?: "No existe lenguaje en el Repositorio"
+
+            Glide.with(binding.root.context)
+                .load(repo.owner.avatarUrl)
+                .circleCrop()
+                .into(binding.repoOwnerImage)
+
+            // Botón EDITAR
+            binding.btnEdit.setOnClickListener {
+                onEdit(repo)
+            }
+
+            // Botón ELIMINAR
+            binding.btnDelete.setOnClickListener {
+                onDelete(repo)
+            }
+        }
     }
-}
-
-
-class ReposAdapter : RecyclerView.Adapter<RepoViewHolder>() {
-
-    private var repositories : List<Repo> = emptyList()
-
-
-    override fun getItemCount(): Int = repositories.size
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder {
-
         val binding = FragmentRepoItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
@@ -43,10 +49,11 @@ class ReposAdapter : RecyclerView.Adapter<RepoViewHolder>() {
         return RepoViewHolder(binding)
     }
 
-
     override fun onBindViewHolder(holder: RepoViewHolder, position: Int) {
         holder.bind(repositories[position])
     }
+
+    override fun getItemCount(): Int = repositories.size
 
     fun updaterepositories(newRepositories: List<Repo>) {
         repositories = newRepositories
